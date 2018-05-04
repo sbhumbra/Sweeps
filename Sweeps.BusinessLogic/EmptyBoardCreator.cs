@@ -7,7 +7,7 @@ using Sweeps.DataTypes;
 
 namespace Sweeps.BusinessLogic
 {
-    public class EmptyBoardCreator
+    class EmptyBoardCreator
     {
         public Board CreateBoard(int x, int y)
         {

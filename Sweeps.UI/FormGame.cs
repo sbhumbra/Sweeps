@@ -350,12 +350,19 @@ namespace Sweeps.UI
                     _cells[x][y].OnStartGame();
                 }
 
-                await _solver.Solve(_board.Cells, x, y);
+                await _solver.Solve(SelectPublicCells(), x, y);
             }
             catch (Exception ex)
             {
                 //MessageBox.Show(string.Format("the AI made a fatal error... {0}", ex.Message));
             }
+        }
+
+        List<List<IPublicCell>> SelectPublicCells()
+        {
+            return _board.Cells
+                .Select(r => r.Select(c => c as IPublicCell).ToList())
+                .ToList();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Sweeps.AI.Solvers
     {
         protected override async Task SolveInternal()
         {
-            foreach (ICell cell in Cells.SelectMany(c => c))
+            foreach (IPublicCell cell in Cells.SelectMany(c => c))
             {
                 if (IsCancelled)
                 {

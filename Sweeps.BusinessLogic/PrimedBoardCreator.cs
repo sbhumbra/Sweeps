@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sweeps.BusinessLogic
 {
-    public class PrimedBoardCreator
+    class PrimedBoardCreator
     {
         private readonly Random _random;
 

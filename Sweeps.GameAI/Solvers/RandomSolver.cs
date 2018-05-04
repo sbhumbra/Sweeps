@@ -22,14 +22,14 @@ namespace Sweeps.AI.Solvers
             {
                 int x = _random.Next(0, Cells.Count - 1);
                 int y = _random.Next(0, Cells[0].Count - 1);
-                ICell cell = Cells[x][y];
+                IPublicCell cell = Cells[x][y];
 
                 if (cell.State == CellState.New)
                 {
                     await Reveal(cell);
                 }
             }
-            foreach (ICell cell in Cells.SelectMany(c => c))
+            foreach (IPublicCell cell in Cells.SelectMany(c => c))
             {
                 if (IsCancelled)
                 {

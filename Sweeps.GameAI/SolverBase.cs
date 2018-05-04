@@ -12,14 +12,14 @@ namespace Sweeps.AI
     {
         protected bool IsCancelled { get; private set; }
 
-        public List<List<ICell>> Cells { get; private set; }
+        public List<List<IPublicCell>> Cells { get; private set; }
 
         public SolverBase()
         {
             IsCancelled = false;
         }
 
-        public async Task Solve(List<List<ICell>> cells, int x = 0, int y = 0)
+        public async Task Solve(List<List<IPublicCell>> cells, int x = 0, int y = 0)
         {
             IsCancelled = false;
 
@@ -54,7 +54,7 @@ namespace Sweeps.AI
             IsCancelled = true;
         }
 
-        protected async Task Reveal(ICell cell)
+        protected async Task Reveal(IPublicCell cell)
         {
             if (IsCancelled)
             {
@@ -65,7 +65,7 @@ namespace Sweeps.AI
             await Pause();
         }
 
-        protected async Task ToggleFlag(ICell cell)
+        protected async Task ToggleFlag(IPublicCell cell)
         {
             if (IsCancelled)
             {

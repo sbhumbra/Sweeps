@@ -29,9 +29,9 @@ namespace Sweeps.AI.Solvers
             await Reveal(GetRandomNewCell());
         }
 
-        protected ICell GetRandomNewCell()
+        protected IPublicCell GetRandomNewCell()
         {
-            List<ICell> newCells = Cells
+            List<IPublicCell> newCells = Cells
                 .SelectMany(c => c)
                 .Where(c => c.State == CellState.New)
                 .ToList();
@@ -58,7 +58,7 @@ namespace Sweeps.AI.Solvers
         protected async Task<bool> TrySimpleSweep()
         {
             bool informationGained = false;
-            foreach (ICell cell in Cells.SelectMany(c => c))
+            foreach (IPublicCell cell in Cells.SelectMany(c => c))
             {
                 if (IsCancelled)
                 {
@@ -77,7 +77,7 @@ namespace Sweeps.AI.Solvers
 
                 if (cell.ApparentNumber == 8)
                 {
-                    foreach (ICell nearByCell in cell.NearbyCells)
+                    foreach (IPublicCell nearByCell in cell.NearbyCells)
                     {
                         await Reveal(nearByCell);
                         informationGained = true;
@@ -86,7 +86,7 @@ namespace Sweeps.AI.Solvers
 
                 int unknowns = 0;
                 int knownBombs = 0;
-                foreach (ICell nearByCell in cell.NearbyCells)
+                foreach (IPublicCell nearByCell in cell.NearbyCells)
                 {
                     if (nearByCell.State == CellState.New)
                     {
@@ -103,7 +103,7 @@ namespace Sweeps.AI.Solvers
 
                 if (bombsLeft >= unknowns)
                 {
-                    foreach (ICell nearByCell in cell.NearbyCells)
+                    foreach (IPublicCell nearByCell in cell.NearbyCells)
                     {
                         if (nearByCell.State == CellState.New)
                         {
@@ -115,7 +115,7 @@ namespace Sweeps.AI.Solvers
 
                 if (bombsLeft <= 0)
                 {
-                    foreach (ICell nearByCell in cell.NearbyCells)
+                    foreach (IPublicCell nearByCell in cell.NearbyCells)
                     {
                         if (nearByCell.State == CellState.New)
                         {

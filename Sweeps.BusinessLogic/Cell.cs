@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace Sweeps.DataTypes
 {
-    public class Cell : ICell
+    class Cell : ICell
     {
         public Cell()
         {
-            NearbyCells = new List<ICell>();
+            NearbyCells = new List<IPublicCell>();
             State = CellState.New;
         }
 
@@ -22,7 +22,7 @@ namespace Sweeps.DataTypes
 
         public int NearByBombCount { get; private set; }
 
-        public List<ICell> NearbyCells { get; private set; }
+        public List<IPublicCell> NearbyCells { get; private set; }
 
         public int ApparentNumber
         {
@@ -75,7 +75,10 @@ namespace Sweeps.DataTypes
 
                 if (NearByBombCount <= 0)
                 {
-                    NearbyCells.ForEach(c => c.TryReveal());
+                    NearbyCells
+                        .OfType<ICell>()
+                        .ToList()
+                        .ForEach(c => c.TryReveal());
                 }
             }
         }

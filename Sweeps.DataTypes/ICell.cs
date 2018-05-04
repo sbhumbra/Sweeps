@@ -8,18 +8,10 @@ using System.Windows.Forms;
 
 namespace Sweeps.DataTypes
 {
-    public interface ICell
+    interface ICell : IPublicCell
     {
-        CellState State { get; }
-        
-        List<ICell> NearbyCells { get; }
-
-        int ApparentNumber { get; }
-
         bool IsBomb { get; }
-
-        int NearByBombCount { get; }
-
+        
         bool TryBombify();
 
         void AssignNearBy(ICell nearbyCell);
@@ -39,7 +31,5 @@ namespace Sweeps.DataTypes
         event EventHandler<FlaggedEventArgs> CellUnflagged;
         
         event EventHandler<MouseEventArgs> Click;
-
-        void OnClick(MouseButtons button);
     }
 }
