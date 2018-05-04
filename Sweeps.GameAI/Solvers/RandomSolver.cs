@@ -22,18 +22,20 @@ namespace Sweeps.AI.Solvers
             {
                 int x = _random.Next(0, Cells.Count - 1);
                 int y = _random.Next(0, Cells[0].Count - 1);
-                Cell cell = Cells[x][y];
+                ICell cell = Cells[x][y];
+
                 if (cell.State == CellState.New)
                 {
                     await Reveal(cell);
                 }
             }
-            foreach (Cell cell in Cells.SelectMany(c => c))
+            foreach (ICell cell in Cells.SelectMany(c => c))
             {
                 if (IsCancelled)
                 {
                     return;
                 }
+
                 if (cell.State == CellState.New)
                 {
                     await Reveal(cell);

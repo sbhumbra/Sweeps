@@ -27,13 +27,15 @@ namespace Sweeps.BusinessLogic
 
             for (int i = 0; i < x; i++)
             {
-                var row = new List<Cell>();
+                var row = new List<ICell>();
                 for (int j = 0; j < y; j++)
                 {
                     row.Add(new Cell());
                 }
+
                 board.AddRow(row);
             }
+
             return board;
         }
 
@@ -43,7 +45,7 @@ namespace Sweeps.BusinessLogic
             {
                 for (int j = 0; j < y; j++)
                 {
-                    Cell cell = board.Cells[i][j];
+                    ICell cell = board.Cells[i][j];
                     if (i != 0)
                     {
                         if (j != 0)

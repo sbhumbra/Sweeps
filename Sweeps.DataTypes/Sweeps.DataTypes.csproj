@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AIType.cs" />
-    <Compile Include="Cell.cs" />
+    <Compile Include="ICell.cs" />
     <Compile Include="CellEventArgs.cs" />
     <Compile Include="CellState.cs" />
     <Compile Include="FlaggedEventArgs.cs" />

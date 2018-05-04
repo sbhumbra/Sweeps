@@ -11,10 +11,10 @@ namespace Sweeps.BusinessLogic
     {
         public Board()
         {
-            Cells = new List<List<Cell>>();
+            Cells = new List<List<ICell>>();
         }
 
-        public void AddRow(List<Cell> row)
+        public void AddRow(List<ICell> row)
         {
             Cells.Add(row);
             row.ForEach(cell => cell.Exploded += cell_Exploded);
@@ -23,7 +23,7 @@ namespace Sweeps.BusinessLogic
             row.ForEach(cell => cell.CellUnflagged += cell_CellUnflagged);
         }
 
-        public List<List<Cell>> Cells { get; private set; }
+        public List<List<ICell>> Cells { get; private set; }
 
         void cell_Exploded(object sender, EventArgs e)
         {

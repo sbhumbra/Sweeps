@@ -26,7 +26,7 @@ namespace Sweeps.UI
 
         public int Y { get; private set; }
 
-        public void Assign(Cell cell)
+        public void Assign(ICell cell)
         {
             if (cell == null)
             {
@@ -51,7 +51,7 @@ namespace Sweeps.UI
             OnMouseClick(e);
         }
 
-        Cell Cell { get; set; }
+        ICell Cell { get; set; }
 
         #region Cell Event Handers
         void cell_CellUnflagged(object sender, FlaggedEventArgs e)

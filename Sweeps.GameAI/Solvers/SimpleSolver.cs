@@ -29,9 +29,9 @@ namespace Sweeps.AI.Solvers
             await Reveal(GetRandomNewCell());
         }
 
-        protected Cell GetRandomNewCell()
+        protected ICell GetRandomNewCell()
         {
-            List<Cell> newCells = Cells
+            List<ICell> newCells = Cells
                 .SelectMany(c => c)
                 .Where(c => c.State == CellState.New)
                 .ToList();
@@ -58,7 +58,7 @@ namespace Sweeps.AI.Solvers
         protected async Task<bool> TrySimpleSweep()
         {
             bool informationGained = false;
-            foreach (Cell cell in Cells.SelectMany(c => c))
+            foreach (ICell cell in Cells.SelectMany(c => c))
             {
                 if (IsCancelled)
                 {
@@ -77,7 +77,7 @@ namespace Sweeps.AI.Solvers
 
                 if (cell.ApparentNumber == 8)
                 {
-                    foreach (Cell nearByCell in cell.NearbyCells)
+                    foreach (ICell nearByCell in cell.NearbyCells)
                     {
                         await Reveal(nearByCell);
                         informationGained = true;
@@ -86,12 +86,13 @@ namespace Sweeps.AI.Solvers
 
                 int unknowns = 0;
                 int knownBombs = 0;
-                foreach (Cell nearByCell in cell.NearbyCells)
+                foreach (ICell nearByCell in cell.NearbyCells)
                 {
                     if (nearByCell.State == CellState.New)
                     {
                         unknowns++;
                     }
+
                     if (nearByCell.State == CellState.Flagged)
                     {
                         knownBombs++;
@@ -102,7 +103,7 @@ namespace Sweeps.AI.Solvers
 
                 if (bombsLeft >= unknowns)
                 {
-                    foreach (Cell nearByCell in cell.NearbyCells)
+                    foreach (ICell nearByCell in cell.NearbyCells)
                     {
                         if (nearByCell.State == CellState.New)
                         {
@@ -114,7 +115,7 @@ namespace Sweeps.AI.Solvers
 
                 if (bombsLeft <= 0)
                 {
-                    foreach (Cell nearByCell in cell.NearbyCells)
+                    foreach (ICell nearByCell in cell.NearbyCells)
                     {
                         if (nearByCell.State == CellState.New)
                         {
@@ -124,6 +125,7 @@ namespace Sweeps.AI.Solvers
                     }
                 }
             }
+
             return informationGained;
         }
     }

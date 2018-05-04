@@ -8,21 +8,21 @@ using System.Windows.Forms;
 
 namespace Sweeps.DataTypes
 {
-    public class Cell
+    public class Cell : ICell
     {
         public Cell()
         {
-            NearbyCells = new List<Cell>();
+            NearbyCells = new List<ICell>();
             State = CellState.New;
         }
 
         public CellState State { get; private set; }
 
-        internal bool IsBomb { get; private set; }
+        public bool IsBomb { get; private set; }
 
-        internal int NearByBombCount { get; private set; }
+        public int NearByBombCount { get; private set; }
 
-        public List<Cell> NearbyCells { get; private set; }
+        public List<ICell> NearbyCells { get; private set; }
 
         public int ApparentNumber
         {
@@ -39,24 +39,25 @@ namespace Sweeps.DataTypes
             }
         }
 
-        internal bool TryBombify()
+        public bool TryBombify()
         {
             if (IsBomb)
             {
                 return false;
             }
+
             IsBomb = true;
             OnBombified();
             return true;
         }
 
-        internal void AssignNearBy(Cell nearbyCell)
+        public void AssignNearBy(ICell nearbyCell)
         {
             nearbyCell.Bombified += (o, e) => NearByBombCount++;
             NearbyCells.Add(nearbyCell);
         }
 
-        internal void TryReveal()
+        public void TryReveal()
         {
             if (State == CellState.Flagged || State == CellState.Revealed)
             {
@@ -71,6 +72,7 @@ namespace Sweeps.DataTypes
             else
             {
                 OnRevealed();
+
                 if (NearByBombCount <= 0)
                 {
                     NearbyCells.ForEach(c => c.TryReveal());
@@ -78,7 +80,7 @@ namespace Sweeps.DataTypes
             }
         }
 
-        internal void ToggleFlag()
+        public void ToggleFlag()
         {
             if (State == CellState.Flagged)
             {
@@ -92,7 +94,7 @@ namespace Sweeps.DataTypes
             }
         }
 
-        event EventHandler Bombified;
+        public event EventHandler Bombified;
 
         protected virtual void OnBombified()
         {

@@ -11,12 +11,13 @@ namespace Sweeps.AI.Solvers
     {
         protected override async Task SolveInternal()
         {
-            foreach (Cell cell in Cells.SelectMany(c => c))
+            foreach (ICell cell in Cells.SelectMany(c => c))
             {
                 if (IsCancelled)
                 {
                     return;
                 }
+
                 if (cell.State == CellState.New)
                 {
                     await ToggleFlag(cell);
