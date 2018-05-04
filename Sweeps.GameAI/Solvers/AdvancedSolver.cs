@@ -31,15 +31,22 @@ namespace Sweeps.AI.Solvers
             {
                 return;
             }
-
-
         }
 
         async Task<bool> TryLookAheadCascade()
         {
             bool informationGained = false;
 
+            List<IPublicCell> borderCells = Cells
+                .SelectMany(c => c)
+                .Where(c => c.State == CellState.Revealed)
+                .Where(c => c.NearbyCells.Any(n => n.State == CellState.New))
+                .ToList();
 
+            if (!borderCells.Any())
+                return false;
+
+            // TODO: perform state violation checks
             return informationGained;
         }
     }
