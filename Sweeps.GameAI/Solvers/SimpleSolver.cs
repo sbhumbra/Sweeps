@@ -74,16 +74,7 @@ namespace Sweeps.AI.Solvers
                 {
                     continue;
                 }
-
-                if (cell.ApparentNumber == 8)
-                {
-                    foreach (IPublicCell nearByCell in cell.NearbyCells)
-                    {
-                        await Reveal(nearByCell);
-                        informationGained = true;
-                    }
-                }
-
+                
                 int unknowns = 0;
                 int knownBombs = 0;
                 foreach (IPublicCell nearByCell in cell.NearbyCells)
